@@ -75,7 +75,7 @@ function DownloadFileConfigure({ open, onDownload, onClose }) {
       },
     };
 
-    const reposField = user.msft_oid ? "mchpRepos" : "userRepos";
+    const reposField = "userRepos";
 
     if (!allTime) {
       query = `?start=${interval[0].toISOString()}&end=${interval[1].toISOString()}`;

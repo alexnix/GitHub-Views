@@ -22,7 +22,7 @@ describe("UserCtrl", () => {
 
   describe("getLastXDaysData", () => {
     it("#user undefined", async () => {
-      const user;
+      const user = null;
       const { success, data } = await UserCtrl.getLastXDaysData(user, 30);
       expect(success).to.be.equal(false);
     });

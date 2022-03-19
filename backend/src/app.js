@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const createError = require("http-errors");
 const express = require("express");
 const path = require("path");
@@ -16,8 +18,9 @@ const {
 setRepoUpdateCron();
 setMonthlySummaryEmailCron();
 
+const mongoUrl = `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@${process.env.MONGO_HOST}/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`;
 mongoose.connect(
-  `mongodb://${process.env.MONGO_INITDB_ROOT_USERNAME}:${process.env.MONGO_INITDB_ROOT_PASSWORD}@mongo/${process.env.MONGO_INITDB_DATABASE}?authSource=admin`,
+  mongoUrl,
   {
     useNewUrlParser: true,
     useCreateIndex: true,

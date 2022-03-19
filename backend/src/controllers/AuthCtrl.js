@@ -28,11 +28,4 @@ module.exports = {
   redirectHome: (req, res) => {
     res.redirect("/");
   },
-
-  msft: (req, res, next) => {
-    passport.authenticate("azuread-openidconnect", {
-      response: res,
-      failureRedirect: "/",
-    })(req, res, next);
-  },
 };

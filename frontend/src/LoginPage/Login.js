@@ -10,18 +10,7 @@ import "./Login.css";
 
 function Login({ authenticated }) {
   const history = useHistory();
-  const { login, register } = React.useContext(AuthContext);
-  const [username, setUsername] = React.useState();
-  const [password, setPassword] = React.useState();
   const [backedVersion, setBackendVersion] = React.useState("");
-
-  React.useEffect(() => {
-    async function getBackedVersion() {
-      const v = await axios.get("/api/VERSION");
-      setBackendVersion(v.data);
-    }
-    getBackedVersion();
-  }, []);
 
   const styles = {
     smallIcon: {
@@ -60,28 +49,6 @@ function Login({ authenticated }) {
           This tool will automatically collect views data for all the
           repositories you have access to.
         </p>
-        <hr />
-        <br />
-        <div>
-          <Button
-            className="loginBtn"
-            color="primary"
-            variant="outlined"
-            onClick={(_) => window.location.replace("/api/auth/msft")}
-          >
-            Click Here to Login With Microsoft
-          </Button>
-          <p>
-            Login with Microsoft and you will still be able to view repos from
-            ${process.env.REACT_APP_AAD_ORGANIZATION_NAME} organizations, plus what other repos other users share
-            with you.
-          </p>
-        </div>
-        <small>
-          Frontend version:{VERSION}
-          <br />
-          Backend version: {backedVersion}
-        </small>
       </center>
     </Grid>
   );

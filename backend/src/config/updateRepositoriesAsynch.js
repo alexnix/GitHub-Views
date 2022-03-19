@@ -7,7 +7,7 @@ const { logger, errorHandler } = require("../logs/logger");
 const repoHooks = require("../repoHooks").default;
 
 async function updateRepositoriesAsynch() {
-  logger.info(`${arguments.callee.name}: Updating local database...`);
+  logger.info(`Updating local database...`);
 
   let repos;
   try {
@@ -117,7 +117,7 @@ async function updateRepositoriesAsynch() {
 
         if (newRepoRequests[githubRepo.full_name] === undefined) {
           logger.info(
-            `${arguments.callee.name}: Repo ${githubRepo.full_name}, ${githubRepo.id} does not exist in db. Creating.`
+            `Repo ${githubRepo.full_name}, ${githubRepo.id} does not exist in db. Creating.`
           );
 
           if (newRepo !== undefined) {
@@ -275,7 +275,7 @@ async function updateRepositoriesAsynch() {
     );
   }
 
-  logger.info(`${arguments.callee.name}: Local database update finished.`);
+  logger.info(`Local database update finished.`);
 }
 
 module.exports = updateRepositoriesAsynch;

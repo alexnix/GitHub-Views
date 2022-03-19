@@ -6,7 +6,6 @@ export interface User extends Document {
   _id: Schema.Types.ObjectId,
   username: string,
   password: string,
-  msft_oid: string,
   githubEmails: [
     {
       email: string,
@@ -24,7 +23,6 @@ export interface User extends Document {
 const userSchema = new Schema({
   username: { type: String, unique: true },
   password: String,
-  msft_oid: String,
   githubEmails: [
     {
       email: String,

@@ -15,13 +15,6 @@ function Navigation() {
   const { user } = React.useContext(AuthContext);
   const { syncRepos } = React.useContext(DataContext);
 
-  if (user.msft_oid) {
-    PAGES.unshift({
-      title: `${process.env.REACT_APP_AAD_ORGANIZATION_NAME} Repos`,
-      key: "mchpRepos",
-    });
-  }
-
   return (
     <nav>
       <ul>

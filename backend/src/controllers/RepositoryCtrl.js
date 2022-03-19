@@ -29,10 +29,6 @@ async function nameContains(req, res) {
   const reposList = repos
     .filter((r) => {
       if (req.user.sharedRepos.indexOf(r._id) !== -1) return 0;
-      const publicRepoOwners = process.env.PUBLIC_REPO_OWNERS.split(" ");
-      for (let i = 0; i < publicRepoOwners.length; i++) {
-        if (r.reponame.startsWith(publicRepoOwners[i])) return true;
-      }
       return false;
     })
     .map((r) => ({ reponame: r.reponame, _id: r._id }));
@@ -491,37 +487,6 @@ async function share(req, res) {
   }
 }
 
-async function getPublicRepos(req, res) {
-  const fields = {};
-  if (req.query.fields !== undefined) {
-    req.query.fields.split(",").forEach((f) => {
-      fields[f] = 1;
-    });
-  }
-
-  const repoOwners = process.env.PUBLIC_REPO_OWNERS.split(" ").join("|");
-  const reponameRegex = new RegExp(`^(${repoOwners})`);
-
-  let repos = [];
-  if (req.from !== undefined && req.to !== undefined) {
-    repos = await RepositoryModel.aggregate(
-      getRepoDataBetween(
-        { reponame: reponameRegex },
-        new Date(req.from),
-        new Date(req.to),
-        fields
-      )
-    );
-  } else {
-    repos = await RepositoryModel.find({ reponame: reponameRegex }, fields, {
-      skip: Number(req.query.page_no) * Number(req.query.page_size),
-      limit: Number(req.query.page_size),
-    });
-  }
-
-  res.send(repos);
-}
-
 module.exports = {
   createRepository,
   updateRepoTraffic,
@@ -530,5 +495,4 @@ module.exports = {
   updateRepoCommits,
   share,
   nameContains,
-  getPublicRepos,
 };

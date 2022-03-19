@@ -41,7 +41,7 @@ async function updateRepositoriesTask() {
 
   switch (DATA_COLLECTION_STRATEGY) {
     case DataCollectionStrategy.LEGACY:
-      
+     { 
       logger.info("LEGACY MODE");
       /* WARNING: running cleanDuplicates here is a dirty find
        * TODO: the root cause of the duplicates creation should be fixed
@@ -55,10 +55,10 @@ async function updateRepositoriesTask() {
           err
         );
       }
-      break;
+      break;}
 
     case DataCollectionStrategy.CURSORS:
-
+{
       logger.info("CURSOR MODE");
       const [err] = await to(dailyUpdate());
       if (err) {
@@ -67,11 +67,11 @@ async function updateRepositoriesTask() {
           err
         );
       }
-      break;
+      break;}
 
     case DataCollectionStrategy.BACK_OFF:
 
-      logger.info("BACK-OFF MODE");
+   {   logger.info("BACK-OFF MODE");
       const [err] = await to(runGenerator(updateRepositoriesGenerator()));
       if (err) {
         errorHandler(
@@ -79,7 +79,7 @@ async function updateRepositoriesTask() {
           err
         );
       }
-      break;
+      break;}
 
     default:
 
