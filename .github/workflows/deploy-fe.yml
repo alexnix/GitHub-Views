@@ -4,6 +4,10 @@ on:
   push:
     branches: release-fe
   workflow_dispatch:
+    inputs:
+      ignoreWarnings:
+        type: boolean
+        description: Ignore warning during build
 
 jobs:
   build:
@@ -19,6 +23,10 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14
+      
+      - name: Uset CI env
+        if: github.event.inputs.ignoreWarnings
+        run: unset CI
 
       - name: Install deps & Build fe
         run: |
