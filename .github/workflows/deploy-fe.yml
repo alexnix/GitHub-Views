@@ -33,7 +33,7 @@ jobs:
           CI=false yarn build
           
       - name: Install deps & Build fe (trat warnings as errors)
-        if: ! github.event.inputs.ignoreWarnings
+        if: github.event.inputs.ignoreWarnings == false
         run: |
           cd frontend
           yarn
